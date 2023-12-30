@@ -29,9 +29,9 @@ export default function Header() {
           </ul>
         </div>
 
-        <div>
+        <Link to={'/login'}>
           <img src={profile} alt="" className="w-[30px]" />
-        </div>
+        </Link>
       </nav>
     </div>
   );

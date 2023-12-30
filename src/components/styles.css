@@ -39,13 +39,17 @@
 } */
 
 /* Стилизация основного элемента скролла */
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #dedfdf;
+}
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 /* Стилизация ползунка скролла */
 ::-webkit-scrollbar-thumb {
-  background-color: #ffffff;
+  background-color: #9b9b9b;
   border-radius: 4px;
 }
 
@@ -76,6 +80,8 @@
   min-height: 100px !important;
   max-width: 100px !important;
   max-height: 100px !important;
+  overflow: hidden !important;
+  border-radius: 0 !important;
 }
 
 
@@ -132,3 +138,5 @@
     margin-right: auto;
   }
 }
+
+

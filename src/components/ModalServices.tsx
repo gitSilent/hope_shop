@@ -1,4 +1,4 @@
-import { IProduct, IService } from "../api/Models/models";
+import { IProduct, IRequest_Post, IService } from "../api/Models/models";
 import ex from "../media/svg/ex.svg"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React, { useRef, useState, useEffect } from 'react';
@@ -9,9 +9,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import './styles.css';
 
-// import required modules
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-
+import { useForm } from 'react-hook-form';
+import { toast } from "react-toastify";
+import { checkValidationPhone } from "../service/checkValidationPhone";
+import { postRequest } from "../api/reqs";
 
 interface IProps {
     checkedArray: IService[],
@@ -23,9 +24,38 @@ interface IProps {
 
 export default function ModalServices({ checkedArray, setModalServicesActive }: IProps) {
   
-  useEffect(()=>{
-    console.log(checkedArray);
-  },[])
+  const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm();
+  const [isPhoneValid, setIsPhoneValid] = useState<boolean | null>(null)
+
+  
+  // useEffect(()=>{
+  //   console.log(checkedArray);
+  //   toast('Пример текста', { type:'success', position: "bottom-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light",});
+  // },[])
+
+
+  function sendRequest(data:any){
+    console.log(data);
+    
+    let dataToSend:IRequest_Post = {
+      data:{
+        Name: data.Name,
+        services: checkedArray.map((item)=>item.id),
+        Phone: data.Phone,
+        Desc: data.Desc
+      }
+    }
+    console.log(dataToSend);
+    
+    postRequest(dataToSend)
+    .then((res)=>{
+      console.log(res);
+      setModalServicesActive(false)
+      toast('Вы успешно отправили заявку!', { type:'success', position: "bottom-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light",});
+    }).catch((er)=>{
+      toast('При отправке заявки произошла ошибка.', { type:'error', position: "bottom-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light",});
+    })
+  }
 
     return (
         <div onClick={() => { setModalServicesActive(false) }} className="modal-close fixed z-10 w-[100vw] h-[100vh] bg-black/60">
@@ -39,20 +69,28 @@ export default function ModalServices({ checkedArray, setModalServicesActive }: 
                     {checkedArray.map((Item, idx) => {
                       return (
                         <div className=" italic">
-                          {idx+1}. {Item.attributes.Name}
+                          {idx+1}. {Item.attributes.Title}
                         </div>
                       )
                     })}
                     {/* Здесь надо сделать вывод выбранных услуг */}
 
                     <h3 className="mt-[30px] mb-[15px] lg:text-[20px] font-semibold">Заполните контактные данные</h3>
-
-                    <div className="inputs grid gap-[15px]">
-                      <input placeholder="Имя*" className="py-[16px] pl-[20px]  lg:w-[550px] border-2 border-solid border-[#2B2B2B]" type="text" />
-                      <input placeholder="Номер телефона*" className="py-[16px] pl-[20px] lg:w-[550px] border-2 border-solid border-[#2B2B2B]" type="tel" name="tel" id="tel" />
-                      <input placeholder="Описание заявки" className="py-[16px]  pl-[20px] lg:w-[550px] border-2 border-solid border-[#2B2B2B]" type="text" />
-                    </div>
-                    <button className="gbtn mt-[35px] py-[16px] bg-[#303030] text-white">Оставить заявку</button>
+                    <form onSubmit={handleSubmit(sendRequest)} action="" className="w-full">
+                      <div className="inputs grid gap-[15px]">
+                        <input {...register('Name', {required:true})} placeholder="Имя*" className="py-[16px] pl-[20px]  lg:w-[550px] border-2 border-solid border-[#2B2B2B]" type="text" />
+                        {errors.Name && <span className="block text-red-500">Поле не может быть пустым</span>}
+                        <input {...register('Phone', { required: true, onChange: () => { setIsPhoneValid(checkValidationPhone(getValues().Phone)) } })} placeholder="Номер телефона*" className="py-[16px] pl-[20px] lg:w-[550px] border-2 border-solid border-[#2B2B2B]" type="tel" />
+                        {isPhoneValid !== null && !isPhoneValid
+                          ? <span className="block text-red-500">Проверьте правильность ввода номера телефона</span>
+                          : <></>
+                        }
+                        {errors.Phone && <span className="block text-red-500">Поле не может быть пустым</span>}
+                        <input {...register('Desc', {required:true})} placeholder="Описание заявки" className="py-[16px]  pl-[20px] lg:w-[550px] border-2 border-solid border-[#2B2B2B]" type="text" />
+                        {errors.Desc && <span className="block text-red-500">Поле не может быть пустым</span>}
+                      </div>
+                      <button onClick={handleSubmit(sendRequest)} className="gbtn w-full mt-[35px] py-[16px] bg-[#303030] text-white">Оставить заявку</button>
+                    </form>
                   </div>
                 </div>
             </div>
@@ -62,3 +100,5 @@ export default function ModalServices({ checkedArray, setModalServicesActive }: 
 
     )
 }
+
+

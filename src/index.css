@@ -51,4 +51,15 @@ html, body, #root{
     background-color: black;
 }
 
+.swiper-button-prev, .swiper-button-next{
+    color: #000000 !important;
+}
 
+.hideScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.hideScroll {
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+}

@@ -12,21 +12,25 @@ import 'swiper/swiper-bundle.css';
 
 // import required modules
 import { FreeMode, Navigation, Thumbs, Pagination } from 'swiper/modules';
+import { DOMAIN } from "../api/reqs";
 
+//react-toastify modules
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IProps {
     chosenProduct: IProduct,
     setModalProductActive: React.Dispatch<React.SetStateAction<boolean>>,
-
 }
 
 
 export default function ModalProduct({ chosenProduct, setModalProductActive }: IProps) {
 
     const [windowDimensions, setWindowDimensions] = useState<{height:number, width:number}>();
-    const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-        
+    
     useEffect(() => {
+       
+
         function handleResize() {
           setWindowDimensions({height:window.innerHeight, width:window.innerWidth});
         }
@@ -40,7 +44,7 @@ export default function ModalProduct({ chosenProduct, setModalProductActive }: I
                 <img onClick={() => { setModalProductActive(false) }} src={ex} alt="" className="modal-close fixed w-[24px] h-[24px] z-[5] top-[80px] lx:top-[50px] right-[60px] hover:cursor-pointer hover:brightness-50 duration-150 filter brightness-[40%] lx:filter-none" />
                 <div className="flex flex-col gap-[40px] lx:flex-row">
                     <div className="flex flex-col-reverse gap-[10px] l:flex-row">
-                        <div className="swiper-pagination swiper-product-pagination"></div>
+                        <div className="swiper-pagination swiper-product-pagination hideScroll"></div>
                         
                         <div className="flex">
                             <Swiper navigation={window.innerWidth > 1040 ? true : false} 
@@ -50,15 +54,17 @@ export default function ModalProduct({ chosenProduct, setModalProductActive }: I
                                 renderBullet: function (index: number, className: string) {
                                     return `
                                     <div class=${className}>
-                                        <img src="${chosenProduct.Image}" alt="Thumbnail" ${index} />
+                                        <img src="${DOMAIN + chosenProduct.attributes.Photos.data[index].attributes.url}" alt="Thumbnail" ${index} />
                                     </div>
                                     `;
                                 },
                             }}
                             modules={[Pagination, Navigation]} className="swiper-product">
-                                <SwiperSlide><img src={chosenProduct.Image} alt="" className="absolute top-0 left-0 h-full w-full object-cover" /></SwiperSlide>
-                                <SwiperSlide><img src={chosenProduct.Image} alt="" className="absolute top-0 left-0 h-full w-full object-cover" /></SwiperSlide>
-                                <SwiperSlide><img src={chosenProduct.Image} alt="" className="absolute top-0 left-0 h-full w-full object-cover" /></SwiperSlide>
+                                {chosenProduct.attributes.Photos.data.map((item,idx)=>{
+                                    return (
+                                        <SwiperSlide><img src={DOMAIN + item.attributes.url} alt="" className="absolute top-0 left-0 h-full w-full object-cover" /></SwiperSlide>
+                                    )
+                                })}
                              
                             </Swiper>
                         </div>
@@ -68,22 +74,20 @@ export default function ModalProduct({ chosenProduct, setModalProductActive }: I
                     <div className='flex flex-col lx:max-w-[400px] max-h-[430px] justify-between'>
                         <div>
                             <div className="font-medium text-[36px]">
-                                {chosenProduct.ProductName}
+                                {chosenProduct.attributes.Title}
                             </div>
                             <div className="text-[36px]">
-                                {chosenProduct.Price} ₽
+                                {chosenProduct.attributes.Price} ₽
                             </div>
                             <div className="mt-[20px] text-[13px]">
-                                {chosenProduct.Description}
+                                {chosenProduct.attributes.Desc}
                             </div>
                         </div>
                         <div>
                             <div className="">
-                                <button className='gbtn w-full h-[50px] bg-[#303030] text-white'>Купить</button>
+                                <a href={`https://wa.me/79055456556?text=Здравствуйте, хочу приобрести ${chosenProduct.attributes.Title} (артикул ${chosenProduct.id})`}><button className='gbtn w-full h-[50px] bg-[#303030] text-white'>Купить</button></a>
                             </div>
-                            <div className="">
-                                <button className='bbtn w-full h-[50px] border-solid border-2 border-black mt-[10px]'>В корзину</button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

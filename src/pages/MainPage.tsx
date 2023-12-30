@@ -15,8 +15,21 @@ import vk from "../media/svg/vk.svg"
 
 import Marquee from "react-fast-marquee";
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
+import { useEffect, useState } from 'react'
+import { DOMAIN, getOurWorks } from '../api/reqs'
+import { IOurWork } from '../api/Models/models'
+import { Link } from 'react-router-dom'
 
 export default function MainPage() {
+    const [ourWorks, setOurWorks] = useState<IOurWork[]>()
+
+    useEffect(()=>{
+        getOurWorks()
+        .then((res)=>{
+            setOurWorks(res.data.data)
+        })
+    },[])
+
     return (
         <div className='relative min-h-[100%] pb-[150px]'>
             <Header />
@@ -27,8 +40,8 @@ export default function MainPage() {
                     <p className='w-[80%] max-w-[560px] mt-[15px] text-[#D9D9D9] text-[14px] md:text-[20px] md:max-w-[789px] md:w-full'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque posuere purus in finibus. Sed nec porta lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
 
                     <div className='flex flex-wrap gap-[14px] mt-[50px] md:mt-[65px]'>
-                        <button className='px-[38px] py-[7px] border-[1px] leading-[24px] border-white text-white text-[17px] rounded-full font-semibold md:text-[32px] md:px-[70px] md:py-[13px] md:leading-[38px]'>Услуги</button>
-                        <button className='px-[38px] py-[7px] border-[1px] leading-[24px] border-white bg-white text-[#2B2B2B] text-[17px] rounded-full font-semibold md:text-[32px] md:px-[70px] md:py-[13px] md:leading-[38px]'>Товары</button>
+                        <Link to={"/services"} className='px-[38px] py-[7px] border-[1px] leading-[24px] border-white text-white text-[17px] rounded-full font-semibold md:text-[32px] md:px-[70px] md:py-[13px] md:leading-[38px]'>Услуги</Link>
+                        <Link to={"/products"} className='px-[38px] py-[7px] border-[1px] leading-[24px] border-white bg-white text-[#2B2B2B] text-[17px] rounded-full font-semibold md:text-[32px] md:px-[70px] md:py-[13px] md:leading-[38px]'>Товары</Link>
                     </div>
                 </div>
             </section>
@@ -58,14 +71,22 @@ export default function MainPage() {
             <section className='mt-[40px]'>
                 <h2 className='font-semibold text-[24px] text-center md:text-[40px] md:mt-[100px]'> Наши работы </h2>
                 <Marquee autoFill speed={25} className='mt-[20px]'>
-                    <img src={product_example} alt="" className='w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]' />
-                    <img src={product_example} alt="" className='w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]' />
-                    <img src={product_example} alt="" className='w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]' />
+                    {ourWorks?.map((item,idx)=>{
+                        return(
+                            <div className='relative w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]'>
+                                <img src={DOMAIN + item.attributes.Photo.data.attributes.url} alt="" className='absolute top-0 left-0 w-full h-full object-cover' />
+                            </div>
+                        )
+                    })}
                 </Marquee>
                 <Marquee autoFill speed={25} direction='right' className='mt-[10px] md:mt-[20px]'>
-                    <img src={product_example} alt="" className='w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]' />
-                    <img src={product_example} alt="" className='w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]' />
-                    <img src={product_example} alt="" className='w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]' />
+                    {ourWorks?.map((item,idx)=>{
+                        return(
+                            <div className='relative w-[150px] h-[150px] ml-[10px] md:w-[300px] md:h-[300px] md:ml-[20px]'>
+                                <img src={DOMAIN + item.attributes.Photo.data.attributes.url} alt="" className='absolute top-0 left-0 w-full h-full object-cover' />
+                            </div>
+                        )   
+                    })}
                 </Marquee>
             </section>
 

@@ -2,10 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 780px;
+    width: 100%;
   }
   
   .accordion {
-    /* width: 500px; */
+    width: 100%;
   }
   
   .item {

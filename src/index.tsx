@@ -10,6 +10,8 @@ import ErrorPage from './pages/ErrorPage';
 import ProductsPage from './pages/ProductsPage';
 import ServicesPage from './pages/ServicesPage/ServicesPage';
 import WorksPage from './pages/WorksPage';
+import LoginPage from './pages/Authorization/LoginPage';
+import AdminPanel from './pages/AdminPanel';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,16 @@ const router = createBrowserRouter([
   {
     path: "/works",
     element: <WorksPage/>,
+    errorElement:<ErrorPage/>
+  },
+  {
+    path: "/login",
+    element: <LoginPage/>,
+    errorElement:<ErrorPage/>
+  },
+  {
+    path: "/admin_panel",
+    element: <AdminPanel/>,
     errorElement:<ErrorPage/>
   },
 ]);
