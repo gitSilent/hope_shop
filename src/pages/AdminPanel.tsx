@@ -5,10 +5,12 @@ import { IRequest_Get } from '../api/Models/models'
 import { getRequests } from '../api/reqs'
 import { useNavigate } from 'react-router-dom'
 
+// Страница с админ-панелью
 export default function AdminPanel() {
     const [activeRequests, setActiveRequests] = useState<IRequest_Get[]>()
     const navigate = useNavigate()
 
+    // Получаем заявки всех пользователей
     useEffect(()=>{
         getRequests("filters[Done][$eq]=false")
         .then((res)=>{
@@ -17,6 +19,7 @@ export default function AdminPanel() {
         })
     },[])
 
+    //Функция выхода из аккаунта
     function exitAccount(){
         let hope_shop_jwt = `hope_shop_jwt=""; expires= Thu, 01 Jan 1970 00:00:00 GMT}`;
         document.cookie = hope_shop_jwt;
@@ -32,9 +35,9 @@ export default function AdminPanel() {
             </div>
             <img onClick={exitAccount} src={logout} alt="" className='w-[30px] md:w-[50px] hover:cursor-pointer'/>
         </div>
+
         <section className='mx-auto flex flex-col items-center mt-[50px] max-w-[1400px]'>
             <h1 className='text-[30px] font-bold'>Список всех активных заявок</h1>
-                
             <table className='border-collapse border border-slate-500 w-full min-w-[480px] mt-[30px]'>
                 <tr><th className='border border-slate-600'>Имя</th><th>Телефон</th><th className='border border-slate-600'>Заказанные услуги</th><th className='border border-slate-600'>Действие</th></tr> 
                 {activeRequests?.map((item,idx)=>{
@@ -49,9 +52,6 @@ export default function AdminPanel() {
                     )
                 })}
             </table>
-
-                <div>
-                </div>
         </section>
     </div>
   )

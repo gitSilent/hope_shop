@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import Sidebar from "./SideBar";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import Sidebar from "./SideBar";
+
 import menu from "../media/svg/menu_burger.svg"
 import logo from "../media/svg/logo.svg"
 import profile from "../media/svg/profile.svg"
 
+// Функция компонента Хедер
 export default function Header() {
   const [isSidebarOpened, setIsSidebarOpened] = useState<boolean>(false);
   return (

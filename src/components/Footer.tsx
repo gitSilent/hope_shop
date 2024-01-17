@@ -1,10 +1,10 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
+
 import logoWhite from "../media/svg/logoWhite.svg"
 import tg_dark from "../media/svg/tg_dark.svg"
 import vk_dark from "../media/svg/vk_dark.svg"
 
-import { Link } from 'react-router-dom'
-
+// Функция компонента Футер
 export default function Footer() {
     return (
         <div className='flex absolute bottom-0 justify-between items-end bg-[#2B2B2B] w-full h-fit p-[20px] md:items-center'>

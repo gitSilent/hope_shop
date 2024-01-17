@@ -13,6 +13,7 @@ import WorksPage from './pages/WorksPage';
 import LoginPage from './pages/Authorization/LoginPage';
 import AdminPanel from './pages/AdminPanel';
 
+// Роутинг сайта
 const router = createBrowserRouter([
   {
     path: "/",

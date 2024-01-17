@@ -1,8 +1,13 @@
-import { IProduct } from "../api/Models/models";
-import ex from "../media/svg/ex.svg"
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import React, { useEffect, useRef, useState } from 'react';
+import { Navigation, Pagination } from 'swiper/modules';
 
+import { DOMAIN } from "../api/reqs";
+import { IProduct } from "../api/Models/models";
+
+import ex from "../media/svg/ex.svg"
+
+import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
@@ -10,34 +15,14 @@ import 'swiper/css/thumbs';
 import './styles.css';
 import 'swiper/swiper-bundle.css';
 
-// import required modules
-import { FreeMode, Navigation, Thumbs, Pagination } from 'swiper/modules';
-import { DOMAIN } from "../api/reqs";
-
-//react-toastify modules
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 interface IProps {
     chosenProduct: IProduct,
     setModalProductActive: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-
+// Функция компонента модального окна товара
 export default function ModalProduct({ chosenProduct, setModalProductActive }: IProps) {
 
-    const [windowDimensions, setWindowDimensions] = useState<{height:number, width:number}>();
-    
-    useEffect(() => {
-       
-
-        function handleResize() {
-          setWindowDimensions({height:window.innerHeight, width:window.innerWidth});
-        }
-    
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-      }, []);
     return (
         <div onClick={() => { setModalProductActive(false) }} className="modal-close fixed z-10 w-[100vw] h-[100vh] bg-black/60">
             <div onClick={(e) => { e.stopPropagation() }} className="absolute overflow-y-auto l:overflow-hidden p-[30px] lx:p-[70px] xm:p-[100px] left-0 right-0 top-0 bottom-0 m-auto max-h-[90vh] max-w-[1180px] l:max-h-[628px] h-fit w-[90vw] bg-white">

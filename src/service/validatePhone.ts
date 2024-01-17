@@ -1,3 +1,4 @@
+// Функция проверяющая правильность формата телефонного номера
 export default function validatePhone(phone:string):string | boolean{
     try{
         if((phone.slice(0,3) === "+79" || phone.slice(0,3) === "+89" ) && phone.length === 12){

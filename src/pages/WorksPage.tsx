@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import product_example from "../media/product_example.png"
-import product_example1 from "../media/product_example1.webp"
-import product_example3 from "../media/product_example2.webp"
 import { IOurWork } from '../api/Models/models'
 import { DOMAIN, getOurWorks } from '../api/reqs'
 
-
+// Страница с фотографиями работ ателье
 export default function WorksPage() {
   const [ourWorks, setOurWorks] = useState<IOurWork[]>()
-
+  
+  // Функция получения всех работ ателье 
   useEffect(()=>{
       getOurWorks()
       .then((res)=>{
@@ -27,14 +25,11 @@ export default function WorksPage() {
       </section>
 
       <section className='mx-auto max-w-[1220px] px-[20px] gap-y-[20px] gap-x-[20px] columns-2 sl:columns-3 md:columns-4 '>
-      {ourWorks?.map((item,idx)=>{
-        return(
-          <img className='mb-[20px]' src={DOMAIN + item.attributes.Photo.data.attributes.url} alt=""/>
-        )
-      })}
-       
-        
-
+        {ourWorks?.map((item,idx)=>{
+          return(
+            <img className='mb-[20px]' src={DOMAIN + item.attributes.Photo.data.attributes.url} alt=""/>
+          )
+        })}
       </section>
 
       <Footer />

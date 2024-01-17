@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import { IProduct } from '../api/Models/models'
+
 import Header from '../components/Header'
 import ModalProduct from '../components/ModalProduct'
 import Product from '../components/ProductCard'
-import product_example from "../media/product_example.png"
 import Footer from '../components/Footer'
+
 import { DOMAIN, getProducts } from '../api/reqs'
 
+// Страница с товарами ателье
 export default function ProductsPage() {
   const [chosenProduct, setChosenProduct] = useState<IProduct>()
   const [isModalProductActive, setIsModalProductActive] = useState<boolean>(false)
   const [products, setProducts] = useState<IProduct[]>()
 
+  // Получение списка всех товаров
   useEffect(()=>{
     getProducts()
     .then((res)=>{
@@ -19,6 +22,7 @@ export default function ProductsPage() {
     })
   },[])
   
+  // Запрет скролла контента, когда открыто модальное окно
   useEffect(()=>{
     if (isModalProductActive) {
       document.body.classList.add('no-scroll');

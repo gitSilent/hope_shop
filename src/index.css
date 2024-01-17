@@ -30,7 +30,6 @@ html, body, #root{
 .grid-item {
     grid-row-end: span 17;
     width: 216px;
-    /* height: 384px; */
 }
 
 .bbtn:hover {

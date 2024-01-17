@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { IProduct } from "../api/Models/models";
-import ModalProductActive from "./ModalProduct";
 
 interface IProps {
   Image: string,
@@ -9,6 +6,7 @@ interface IProps {
   openModal: () => void
 }
 
+// Функция компонента карточки товара
 export default function ProductCard({ Image, ProductName, Price, openModal }: IProps) {
 
   return (

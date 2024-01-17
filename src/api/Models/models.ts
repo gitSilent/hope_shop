@@ -1,3 +1,4 @@
+// Интерфейс для объекта работ ателье
 export interface IOurWork{
     id: number,
     attributes: {
@@ -10,7 +11,7 @@ export interface IOurWork{
     }
 }
 
-
+// Интерфейс для объекта товара ателье
 export interface IProduct{
     id: number,
     attributes: {
@@ -25,6 +26,7 @@ export interface IProduct{
     }
 }
 
+// Интерфейс для объекта типа услуги ателье
 export interface IServiceType{
     id: number,
     attributes: {
@@ -35,6 +37,7 @@ export interface IServiceType{
     }
 }
 
+// Интерфейс для объекта услуги ателье
 export interface IService{
     id: number,
     attributes:{
@@ -47,6 +50,7 @@ export interface IService{
     }
 }
 
+// Интерфейс для объекта полученной заявки 
 export interface IRequest_Get{
     id: number,
     attributes:{
@@ -61,6 +65,7 @@ export interface IRequest_Get{
     }
 }
 
+// Интерфейс для объекта отправленной заявки 
 export interface IRequest_Post{
     data:{
         Name: string,
@@ -70,6 +75,7 @@ export interface IRequest_Post{
     }
 }
 
+// Интерфейс для объекта фотографии
 export interface IPhoto{
     id: number,
     attributes:{
