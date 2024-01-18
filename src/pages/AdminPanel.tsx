@@ -23,7 +23,7 @@ export default function AdminPanel() {
     function exitAccount(){
         let hope_shop_jwt = `hope_shop_jwt=""; expires= Thu, 01 Jan 1970 00:00:00 GMT}`;
         document.cookie = hope_shop_jwt;
-        navigate('/login')
+        navigate('/admin')
     }
 
   return (
