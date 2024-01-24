@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import checkAuth from "../../service/checkAuth";
 import { loginAdmin } from "../../api/reqs";
 import { addMinutes } from "../../service/serviceFuncs/addMinutes";
-import logo from "../../media/svg/logo.svg"
+import logo from "../../media/logo.png"
 
 import 'react-toastify/dist/ReactToastify.css';
 

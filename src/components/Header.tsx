@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "./SideBar";
 
 import menu from "../media/svg/menu_burger.svg";
-import logo from "../media/svg/logo.svg";
+import logo from "../media/logo.png";
 import profile from "../media/svg/profile.svg";
 
 // Функция компонента Хедер
@@ -28,7 +28,7 @@ export default function Header() {
           />
         </div>
 
-        <a href="/">
+        <a href="/" className="mx-auto md:mx-0">
           <img src={logo} alt="" className="w-[110px] hover:cursor-pointer" />
         </a>
         <div className="max-w-[615px] w-full font-medium px-[20px] hidden sl:block">

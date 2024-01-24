@@ -27,9 +27,17 @@ export default function WorksPage() {
       <section className='mx-auto max-w-[1220px] px-[20px] gap-y-[20px] gap-x-[20px] columns-2 sl:columns-3 md:columns-4 '>
         {ourWorks?.map((item,idx)=>{
           return(
-            <img className='mb-[20px]' src={DOMAIN + item.attributes.Photo.data.attributes.url} alt=""/>
+            <div className=' mb-[20px] relative w-fit'>
+              <div>
+                <img className='' src={DOMAIN + item.attributes.Photo.data.attributes.url} alt=""/>
+              </div>
+              <div className='h-fit w-full absolute bottom-0 left-0 bg-black/40 z-[5] px-[5px]'>
+                <span className='block text-white text-[12px] md:text-[15px] w-full'>{item.attributes.Title}</span>
+              </div>
+            </div>
           )
         })}
+        
       </section>
 
       <Footer />

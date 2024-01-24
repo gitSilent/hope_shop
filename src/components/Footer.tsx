@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import logoWhite from "../media/svg/logoWhite.svg"
+import logoWhite from "../media/logoWhite.png"
 import tg_dark from "../media/svg/tg_dark.svg"
 import vk_dark from "../media/svg/vk_dark.svg"
 
@@ -8,9 +8,9 @@ import vk_dark from "../media/svg/vk_dark.svg"
 export default function Footer() {
     return (
         <div className='flex absolute bottom-0 justify-between items-end bg-[#2B2B2B] w-full h-fit p-[20px] md:items-center'>
-            <a className='hidden md:block' href="/"><img src={logoWhite} alt="" className='w-[85px] h-[49px] md:w-[149px] md:h-[86px]' /></a>
+            <a className='hidden md:block' href="/"><img src={logoWhite} alt="" className='h-[24px] md:h-[56px]' /></a>
             <div className='flex flex-col md:flex-row md:items-center md:justify-between'>
-                <img src={logoWhite} alt="" className='w-[85px] h-[49px] md:w-[149px] md:h-[86px] md:hidden' />
+                <img src={logoWhite} alt="" className='h-[34px] w-[119px] md:hidden' />
                 <div className='flex items-end gap-[15px] md:gap-[30px] mt-[15px] text-[#F4F4F4] text-[14px] md:text-[16px]'>
                     <div className='flex flex-col font-medium md:flex-row md:gap-[30px]'>
                         <Link to={'/services'}>Услуги</Link>

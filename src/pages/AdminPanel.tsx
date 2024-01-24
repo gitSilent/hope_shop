@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import logo from "../media/svg/logo.svg"
+import logo from "../media/logo.png"
 import logout from "../media/svg/logout.svg"
 import { IRequest_Get } from '../api/Models/models'
 import { getRequests } from '../api/reqs'
